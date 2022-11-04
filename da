@@ -64,6 +64,7 @@ void setup() {
 void loop() {
   // TODO: use joystick movement to cycle through the numbers from 0 to 9, with a state changer (aka if you move the joystick, only one increment should happen. The next change should be after the joystick went back to initial position and is moved again).
 	xValue = analogRead(pinX);
+  swState = digitalRead(pinSW);
   if (xValue < minThreshold && joyMoved == false) {
     digit--;
     joyMoved = true;
