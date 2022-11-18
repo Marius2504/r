@@ -1,0 +1,81 @@
+#include "LedControl.h" //  need the library
+const int dinPin = 12;
+const int clockPin = 11;
+const int loadPin = 10;
+
+const int xPin = A0;
+const int yPin = A1;
+
+LedControl lc = LedControl(dinPin, clockPin, loadPin, 1); // DIN, CLK, LOAD, No. DRIVER
+
+byte matrixBrightness = 2;
+
+byte xPos = 0;
+byte yPos = 0;
+byte xLastPos = 0;
+byte yLastPos = 0;
+
+const int minThreshold = 200;
+const int maxThreshold = 600;
+
+const byte moveInterval = 100;
+unsigned long long lastMoved = 0;
+
+const byte matrixSize = 8;
+bool matrixChanged = true;
+
+byte matrix[matrixSize][matrixSize] = {
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0}  
+};
+
+byte matrixByte[matrixSize] = {
+  B00000000,
+  B01000100,
+  B00101000,
+  B00010000,
+  B00010000,
+  B00010000,
+  B00000000,
+  B00000000
+};
+
+void setup() {
+  Serial.begin(9600);
+  // the zero refers to the MAX7219 number, it is zero for 1 chip
+  lc.shutdown(0, false); // turn off power saving, enables display
+  lc.setIntensity(0, matrixBrightness); // sets brightness (0~15 possible values)
+  lc.clearDisplay(0);// clear screen
+  matrix[xPos][yPos] = 1;
+}
+void loop() {
+  // TODO: update positions in an interval
+ 
+  // TODO: update matrix when broadcasted that it changed
+} 
+// theoretical example
+void generateFood() {
+  // lastFoodPos = currentPos;
+  // newFoodPos = random(ceva);
+  // matrix[lastFoodPos] = 0;
+  // matrix[newFoodPos] = 1;
+  matrixChanged = true;
+}
+
+void updateByteMatrix() {
+  // TODO: update matrix using byte array (refresh function)
+}
+void updateMatrix() {
+ // TODO: update matrix using byte matrix (refresh function)
+}
+
+void updatePositions() {
+ // TODO: joystick control
+}
+
